@@ -2,12 +2,16 @@ import { useState } from 'react'
 import './App.scss'
 import useData from './hooks/useData';
 import UserCard from './components/UserCard';
+import { useDebounce } from './hooks/useDebounce';
 
 function App() {
   const [page, setPage] = useState(1);
   const [sortAscending, setSortAscending] = useState<boolean>();
-  const [search, setSearch] = useState('');
-  const data = useData(search, sortAscending, page);
+  const [search, setSearch] = useState<string>('');
+
+  const debouncedSearch = useDebounce<string>(search, 500)
+
+  const data = useData(debouncedSearch, sortAscending, page);
   
   return (
     <div className='userList'>
