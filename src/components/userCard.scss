@@ -1,4 +1,5 @@
 .userCard {
+    position: relative;
     width: 100%;
     height: fit-content;
     background: #333;
@@ -6,10 +7,24 @@
     padding: 16px;
     display: flex;
     align-items: center;
+    gap: 24px;
+    cursor: pointer;
 
     img {
         width: 96px;
         height: 96px;
         border-radius: 9999px;
+    }
+    .userInfo {
+        p {
+            margin: 0;
+            color: #aaa;
+
+            &.name {
+                font-size: 24px;
+                font-weight: 500;
+                color: #ddd;
+            }
+        }
     }
 }
