@@ -1,14 +1,13 @@
-import { useState } from "react"
-import useDebounceEffect from "./useDebouncedEffect";
+import { useEffect, useState } from "react"
 
 export default function useData (search: string = '', ascending: boolean | undefined, page: number = 1, limit: number = 15) {
     const [data, setData] = useState<TData>();
     
-    useDebounceEffect(() => {
-        fetch(`${import.meta.env.VITE_API_URL}/users?search=${search}&ascending${ascending ? ascending : ''}&page=${page}&limit=${limit}`)
+    useEffect(() => {
+        fetch(`${import.meta.env.VITE_API_URL}/users?search=${search}&ascending=${ascending != undefined ? ascending : ''}&page=${page}&limit=${limit}`)
             .then((req) => req.json())
             .then(setData)
-    }, 500, [ascending, limit, page, search])
+    }, [ascending, limit, page, search])
 
     return data
 }
@@ -31,4 +30,5 @@ export type TUser = {
     ratings: number
     age: number
     gender: string
+    avatar: string
 }

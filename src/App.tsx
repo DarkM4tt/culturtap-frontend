@@ -12,8 +12,21 @@ function App() {
   return (
     <div className='userList'>
       <header>
-        <input placeholder='Search' value={search} onChange={(e) => setSearch(e.target.value)}/>
-        <button onClick={() => setSortAscending((v) => v== undefined ? false : !v)}>Sort Rating {sortAscending != undefined ? (sortAscending ? '▲' : '▼') : ''}</button>
+        <div className='header'>
+          <input placeholder='Search' value={search} onChange={(e) => {
+            setPage(1);
+            setSearch(e.target.value);
+          }}/>
+          <button onClick={() => setSortAscending((v) => v== undefined ? false : !v)}>Sort Rating {sortAscending != undefined ? (sortAscending ? '▲' : '▼') : ''}</button>
+        </div>
+        {
+          data &&
+          <div className='paginationWrapper'>
+            <button onClick={() => setPage((v) => v - 1)} disabled={page === 1}>←</button>
+            <input value={data?.page} onChange={(e) => setPage(Math.max(Math.min(parseInt(e.target.value), data.totalPages), 1))} />
+            <button onClick={() => setPage((v) => v + 1)} disabled={page === data?.totalPages}>→</button>
+          </div>
+        }
       </header>
       <section>
         {
