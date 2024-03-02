@@ -11,7 +11,7 @@ function App() {
 
   const debouncedSearch = useDebounce<string>(search, 500)
 
-  const data = useData(debouncedSearch, sortAscending, page);
+  const {data, loading} = useData(debouncedSearch, sortAscending, page);
   
   return (
     <div className='userList'>
@@ -34,7 +34,7 @@ function App() {
       </header>
       <section>
         {
-          data?.docs ?
+          !loading && data?.docs ?
             data?.docs?.map((v) => (
               <UserCard key={v._id} data={v}/>
             ))
